@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>main.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6a8759;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">openai</span>
+
+<span class="s2"># Set up your OpenAI API credentials</span>
+<span class="s1">openai.api_key = </span><span class="s3">'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'</span>
+
+
+<span class="s0">def </span><span class="s1">ask_chatbot(prompt):</span>
+    <span class="s1">response = openai.Completion.create(</span>
+        <span class="s1">engine=</span><span class="s3">'text-davinci-003'</span><span class="s0">,  </span><span class="s2"># Specify the GPT-3 model to use</span>
+        <span class="s1">prompt=prompt</span><span class="s0">,</span>
+        <span class="s1">max_tokens=</span><span class="s4">10000</span><span class="s0">,  </span><span class="s2"># Adjust the response length as needed</span>
+        <span class="s1">temperature=</span><span class="s4">0.7</span><span class="s0">,  </span><span class="s2"># Control the randomness of the response (0.0 to 1.0)</span>
+        <span class="s1">n=</span><span class="s4">1</span><span class="s0">,  </span><span class="s2"># Number of responses to generate</span>
+        <span class="s1">stop=</span><span class="s0">None,  </span><span class="s2"># Stop generating tokens when reaching a certain string</span>
+        <span class="s1">timeout=</span><span class="s4">15</span><span class="s0">,  </span><span class="s2"># Timeout (in seconds) for the API request</span>
+    <span class="s1">)</span>
+
+    <span class="s0">if </span><span class="s1">response.choices:</span>
+        <span class="s0">return </span><span class="s1">response.choices[</span><span class="s4">0</span><span class="s1">].text.strip()</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        <span class="s0">return None</span>
+
+
+<span class="s2"># Example conversation loop</span>
+<span class="s1">print(</span><span class="s3">&quot;Chatbot: Hello! How can I assist you today?&quot;</span><span class="s1">)</span>
+
+<span class="s0">while True</span><span class="s1">:</span>
+    <span class="s1">user_input = input(</span><span class="s3">&quot;You: &quot;</span><span class="s1">)</span>
+    <span class="s1">prompt = </span><span class="s3">f&quot;User: </span><span class="s0">{</span><span class="s1">user_input</span><span class="s0">}\n</span><span class="s3">Chatbot:&quot;</span>
+
+    <span class="s1">response = ask_chatbot(prompt)</span>
+
+    <span class="s0">if </span><span class="s1">response:</span>
+        <span class="s1">print(</span><span class="s3">&quot;Chatbot:&quot;</span><span class="s0">, </span><span class="s1">response)</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        <span class="s1">print(</span><span class="s3">&quot;Chatbot: Apologies, I'm currently unable to generate a response.&quot;</span><span class="s1">)</span>
+
+</pre>
+</body>
+</html>
